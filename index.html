@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form style="width: 200px">
+    <fieldset>
+        <legend>
+            Adam
+        </legend>
+        <input type="button" value="Say" id='human1' onclick="say(this)"></br></br>
+        <div id="TrongLuongHuman1"></div>
+        <div id="GioiTinhHuman1"></div>
+        <div id="SayHuman1"></div>
+    </fieldset>
+</form>
+<form style="width: 200px">
+    <fieldset>
+        <legend>
+            Eve
+        </legend>
+        <input type="button" value="Say"  id='human2'  onclick="say(this)"></br></br>
+
+        <div id="TrongLuongHuman2"></div>
+        <div id="GioiTinhHuman2"></div>
+        <div id="SayHuman2"></div>
+    </fieldset>
+</form>
+<input style="margin-left: 70px" type="button" value="Eat" onclick="eat()">
+<form style="width: 200px">
+    <fieldset>
+        <legend>
+            Apple
+        </legend>
+        <input type="button" value="Hái táo" onclick="HaiTao()">
+        <div id="TrongLuongApple"></div>
+    </fieldset>
+</form>
+
+<script>
+
+    var Human1eat=true;
+    var Apple = function () {
+        this.weight = 10;
+        this.getweight = function () {
+            return this.weight;
+        }
+        this.setweight = function (weight) {
+            this.weight =weight;
+        }
+        this.decrease = function () {
+            if (this.isEmpty()) {
+            } else {
+                this.weight--;
+            }
+        }
+        this.isEmpty = function () {
+            if (this.weight == 0) {
+                return true;
+            }
+            return false;
+        }
+    }
+    var human = function (isMale, name, weight) {
+        this.isMale = isMale;
+        this.name = name;
+        this.weight = weight;
+        this.setGender = function (isMale) {
+            this.isMale = isMale;
+        }
+        this.checkApple = function (Apple) {
+            return Apple.isEmpty();
+        }
+        this.eat = function (Apple) {
+            if (this.checkApple(Apple)) {
+                alert('Táo đã hết');
+            } else {
+                this.weight++;
+                Apple.decrease();
+            }
+        }
+        this.say = function (string) {
+            return string;
+        }
+        this.getName = function () {
+            return this.name;
+        }
+        this.setName = function (String) {
+            this.name = String;
+        }
+        this.getWeight = function () {
+            return this.weight;
+        }
+        this.setWeight = function (weight) {
+            this.weight = weight;
+        }
+    }
+    var Human1 = new human(true, 'Adam', 65);
+    var Human2 = new human(false, 'Eve', 65);
+    var apple = new Apple();
+    function HaiTao() {
+        apple.setweight(10);
+        showstatus();
+    }
+
+
+    function showstatus() {
+        document.getElementById('TrongLuongApple').innerHTML = 'Trọng lượng của người :'+apple.getweight();
+        document.getElementById('TrongLuongHuman1').innerHTML = 'Trọng lượng của người :'+Human1.getWeight();
+        document.getElementById('TrongLuongHuman2').innerHTML = 'Trọng lượng của người :'+Human2.getWeight();
+        document.getElementById('GioiTinhHuman1').innerHTML =Human1.isMale?'Nam':'Nữ';
+        document.getElementById('GioiTinhHuman2').innerHTML =Human2.isMale?'Nam':'Nữ';
+    }
+function say(obj)
+{
+var array=['Hello','World','Code','Gym'];
+switch (obj.id)
+{
+    case 'human1':
+        document.getElementById('SayHuman1').innerHTML =Human1.say(array[Math.floor(Math.random()*3)]);
+        break;
+    case 'human2':
+        document.getElementById('SayHuman2').innerHTML =Human2.say(array[Math.floor(Math.random()*3)]);
+        break;
+}
+
+
+}
+
+    function eat()
+    {
+        if(Human1eat){
+        Human1.eat(apple);
+            Human1eat=false;
+        }else
+            {
+                Human2.eat(apple);
+                Human1eat=true;
+            }
+        showstatus();
+    }
+    showstatus();
+</script>
+</body>
+</html>
